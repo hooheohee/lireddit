@@ -15,7 +15,7 @@ import cors from "cors";
 import { createConnection } from "typeorm";
 
 const main = async () => {
-  const conn = await createConnection({
+  await createConnection({
     type: "postgres",
     database: "lireddit2",
     username: "postgres",
@@ -24,7 +24,6 @@ const main = async () => {
     synchronize: true,
     entities: [Post, User],
   });
-  conn.createQueryBuilder();
 
   const app = express();
 

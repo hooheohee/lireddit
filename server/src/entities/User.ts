@@ -1,3 +1,4 @@
+import { Post } from "./Post";
 import { ObjectType, Field } from "type-graphql";
 import {
   Entity,
@@ -6,6 +7,7 @@ import {
   UpdateDateColumn,
   Column,
   BaseEntity,
+  OneToMany,
 } from "typeorm";
 
 @ObjectType()
@@ -16,7 +18,7 @@ export class User extends BaseEntity {
   id!: number;
 
   @Field(() => String)
-  @CreateDateColumn({ type: "date" })
+  @CreateDateColumn()
   createdAt: Date;
 
   @Field(() => String)
@@ -33,4 +35,7 @@ export class User extends BaseEntity {
   @Field()
   @Column({ unique: true })
   email!: string;
+
+  @OneToMany(() => Post, (post) => post.creator)
+  posts: Post[];
 }
